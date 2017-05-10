@@ -1,11 +1,11 @@
 class FIData
 
-attr_reader :name, :risk, :zip, :date, :results, :violations
+attr_reader :name, :risk, :zipcode, :date, :results, :violations
 
   def initialize(args={})
     @name = args[:DBA_Name]
     @risk = args[:Risk]
-    @zip = args[:Zip]
+    @zipcode = args[:Zip]
     @date = args[:Inspection_Date]
     @results = args[:Results]
     @violations = args[:Violations]
