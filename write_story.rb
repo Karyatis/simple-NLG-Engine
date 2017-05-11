@@ -1,20 +1,24 @@
+require_relative 'fi_data'
+require_relative 'fi_data_loader'
+require_relative 'establishments'
+
+	include FIDataLoader
+
 zip_code = ARGV.first
 filepath = ARGV.last
 
-require_relative 'fi_data'
-require_relative 'fi_data_loader'
+fi_data = FIDataLoader.parse(filepath)
+establishments = Establishments.new({fi_data: fi_data})
 
-include FIDataLoader
+p establishments.city_pass
+p establishments.city_fail
 
 
-inspection_data = FIDataLoader.parse(filepath)
 
-p inspection_data
-
-puts "=================================================
-In March of 2017, there were a total of 1657 inspections in Chicago, of
-which 17 happened in zip code #{zip_code}. In Chicago as a whole, 59.20% of
-inspections were passes, while in #{zip_code} that number was 47.06%."
+# puts "=================================================
+# In March of 2017, there were a total of 1657 inspections in Chicago, of
+# which 17 happened in zip code #{zip_code}. In Chicago as a whole, 59.20% of
+# inspections were passes, while in #{zip_code} that number was 47.06%."
 
 # The restaurants that failed inspections most recently were: Bespoke
 # Men's Grooming, Asian Chopsticks, Inc, and Mago Grill & Cantina. 
