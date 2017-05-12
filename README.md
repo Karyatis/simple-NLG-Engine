@@ -6,10 +6,11 @@ Using data from the Chicago Food Inspections website, this program gives a repor
 ## Running the program
 
 After cloning to your system, type ```ruby write_story.rb <zip code> <file name>```
+
 The output will be the report.
 
 ## Running the tests
-Type ```rspec```
+In the folder in which you cloned the code, type ```rspec```
 
 ## Author
 Anna Pougas
