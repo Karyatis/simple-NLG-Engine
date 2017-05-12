@@ -13,7 +13,7 @@ class Establishments
 
 		 The report contains a total of #{num_inspections} inspections in Chicago. As a whole, #{city_pass} establishments passed the inspection, while #{city_fail} failed. The city pass rate was #{city_pass_percentage(zip_code)}%. 
 
-		In the #{zip_code} zip code there were #{num_zipcode_array(zip_code)} inspections. #{zip_pass(zip_code)} establishments passed the inspection, while #{zip_fail(zip_code)} failed. That is a #{zip_pass_percentage(zip_code)}% pass rate while the failure rate was #{zip_fail_percentage(zip_code)}%. The three establishments that failed the inspection most recently are #{recent_fails_names}. 
+		In the #{zip_code} zip code there were #{num_zipcode_array(zip_code)} inspections. #{zip_pass(zip_code)} establishments passed the inspection, while #{zip_fail(zip_code)} failed. That is a #{zip_pass_percentage(zip_code)}% pass rate while the failure rate was #{zip_fail_percentage(zip_code)}%. #{snarky_comment(zip_code)} The three establishments that failed the inspection most recently are #{recent_fails_names}. 
 
 		A high risk establishment, #{name_high_risk_establishment}, had the following violations: #{violations_high_risk_establishment}
 		HEREDOC
@@ -104,6 +104,14 @@ class Establishments
 
 	def city_pass_percentage(zip_code)
 		(city_pass.to_f / @fi_data.length.to_f  * 100).round(2)
+	end
+
+	def snarky_comment(zip_code)
+		if zip_pass_percentage(zip_code) > city_pass_percentage(zip_code)
+			"Good job, #{zip_code}!"
+		else
+			"Don't let the tourists know, #{zip_code}!"
+		end
 	end
 end
 
