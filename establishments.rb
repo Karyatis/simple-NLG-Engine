@@ -6,13 +6,37 @@ class Establishments
 		@fi_data = args.fetch(:fi_data, [])
 	end
 
+	def chi_to_s
+		"In March of 2017, there were a total of #{num_inspections} inspections in Chicago. In Chicago as a whole, there were #{city_pass} establishments that passed the inspection, while #{city_fail} failed."
+	end
+
+	def zip_to_s(zip_code)
+		"In #{zip_code} there were #{zip_pass(zip_code)} establishments that passed the inspection, while #{zip_fail(zip_code)} failed."
+	end
+
+	private 
+
+	def zipcode_array(zip_code)
+		@fi_data.select {|fi_data| fi_data.zipcode == zip_code }
+	end
+
+	def zip_pass(zip_code)
+		zipcode_array(zip_code).select {|establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions"}.length
+	end
+
+	def zip_fail(zip_code)
+		zipcode_array(zip_code).select {|establishment| establishment.results == "Fail"}.length
+	end
+
+	def num_inspections
+		@fi_data.length
+	end
+
 	def city_pass
-		num_pass = @fi_data.select { |establishment| establishment.results == "Pass" }
-		num_pass.length
+		@fi_data.select {|establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions"}.length
 	end
 
 	def city_fail
-		num_fail = @fi_data.select { |establishment| establishment.results == "Fail" }
-		num_fail.length
+		@fi_data.select {|establishment| establishment.results == "Fail"}.length
 	end
 end
