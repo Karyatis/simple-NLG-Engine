@@ -10,7 +10,7 @@ filepath = ARGV.last
 fi_data = FIDataLoader.parse(filepath)
 establishments = Establishments.new({fi_data: fi_data})
 
-puts establishments.to_s(zip_code)
+puts establishments.to_pretty_string(zip_code)
 
 
 
