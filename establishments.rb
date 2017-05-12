@@ -6,19 +6,14 @@ class Establishments
 		@fi_data = args.fetch(:fi_data, [])
 	end
 
-	def chi_to_s
-		"In March of 2017, there were a total of #{num_inspections} inspections in Chicago. In Chicago as a whole, there were #{city_pass} establishments that passed the inspection, while #{city_fail} failed."
-	end
-
-	def zip_to_s(zip_code)
-		"In #{zip_code} there were #{zip_pass(zip_code)} establishments that passed the inspection, while #{zip_fail(zip_code)} failed. That is a #{zip_pass_precentage(zip_code)}(%) pass rate"
-		 # and a #{zip_fail_percentage(zip_code)(%) fail rate.}"
+	def to_s(zip_code)
+		"In March of 2017, there were a total of #{num_inspections} inspections in Chicago. In Chicago as a whole, there were #{city_pass} establishments that passed the inspection, while #{city_fail} failed. In #{zip_code} there were #{zip_pass(zip_code)} establishments that passed the inspection, while #{zip_fail(zip_code)} failed. That is a #{zip_pass_percentage(zip_code)}(%) pass rate while the failure rate was #{zip_fail_percentage(zip_code)}(%). The city pass rate is #{city_pass_percentage(zip_code)}(%)."
 	end
 
 	private 
 
 	def zipcode_array(zip_code)
-		@fi_data.select {|fi_data| fi_data.zipcode == zip_code }
+		arr = @fi_data.select {|fi_data| fi_data.zipcode == zip_code }
 	end
 
 	def zip_pass(zip_code)
@@ -29,14 +24,13 @@ class Establishments
 		zipcode_array(zip_code).select {|establishment| establishment.results == "Fail"}.length
 	end
 
-	def zip_pass_precentage(zip_code)
-		p zipcode_array(zip_code).length
-		zipcode_array(zip_code).length / zip_pass(zip_code) 
+	def zip_pass_percentage(zip_code)
+		(zip_pass(zip_code).to_f / zipcode_array(zip_code).length.to_f * 100).round(2)
 	end
 
-	# def zip_fail_percentage(zip_code)
-	# 	(zipcode_array(zip_code).length / zip_fail(zip_code)) * 100
-	# end
+	def zip_fail_percentage(zip_code)
+		(zip_fail(zip_code).to_f / zipcode_array(zip_code).length.to_f * 100).round(2)
+	end
 
 	def num_inspections
 		@fi_data.length
@@ -48,5 +42,9 @@ class Establishments
 
 	def city_fail
 		@fi_data.select {|establishment| establishment.results == "Fail"}.length
+	end
+
+	def city_pass_percentage(zip_code)
+		(city_pass.to_f / @fi_data.length.to_f  * 100).round(2)
 	end
 end
