@@ -11,7 +11,8 @@ class Establishments
 	end
 
 	def zip_to_s(zip_code)
-		"In #{zip_code} there were #{zip_pass(zip_code)} establishments that passed the inspection, while #{zip_fail(zip_code)} failed."
+		"In #{zip_code} there were #{zip_pass(zip_code)} establishments that passed the inspection, while #{zip_fail(zip_code)} failed. That is a #{zip_pass_precentage(zip_code)}(%) pass rate"
+		 # and a #{zip_fail_percentage(zip_code)(%) fail rate.}"
 	end
 
 	private 
@@ -27,6 +28,15 @@ class Establishments
 	def zip_fail(zip_code)
 		zipcode_array(zip_code).select {|establishment| establishment.results == "Fail"}.length
 	end
+
+	def zip_pass_precentage(zip_code)
+		p zipcode_array(zip_code).length
+		zipcode_array(zip_code).length / zip_pass(zip_code) 
+	end
+
+	# def zip_fail_percentage(zip_code)
+	# 	(zipcode_array(zip_code).length / zip_fail(zip_code)) * 100
+	# end
 
 	def num_inspections
 		@fi_data.length
