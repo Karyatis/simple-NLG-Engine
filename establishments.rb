@@ -6,11 +6,27 @@ class Establishments
 		@fi_data = args.fetch(:fi_data, [])
 	end
 
-	def to_s(zip_code)
-		"In March of 2017, there were a total of #{num_inspections} inspections in Chicago. In Chicago as a whole, there were #{city_pass} establishments that passed the inspection, while #{city_fail} failed. In #{zip_code} there were #{zip_pass(zip_code)} establishments that passed the inspection, while #{zip_fail(zip_code)} failed. That is a #{zip_pass_percentage(zip_code)}(%) pass rate while the failure rate was #{zip_fail_percentage(zip_code)}(%). The city pass rate is #{city_pass_percentage(zip_code)}(%). The three establishments that failed the inspection most recently are #{recent_fails_names}"
-	end
+	def to_pretty_string(zip_code)
+		"In March of 2017, there were a total of #{num_inspections} inspections in Chicago. In Chicago as a whole, there were #{city_pass} establishments that passed the inspection, while #{city_fail} failed. In #{zip_code} there were #{zip_pass(zip_code)} establishments that passed the inspection, while #{zip_fail(zip_code)} failed. That is a #{zip_pass_percentage(zip_code)}(%) pass rate while the failure rate was #{zip_fail_percentage(zip_code)}(%). The city pass rate is #{city_pass_percentage(zip_code)}(%). The three establishments that failed the inspection most recently are #{recent_fails_names}. A high risk establishment, #{name_high_risk_establishment}, had the following violations: #{violations_high_risk_establishment}"
+ 	end
 
 	private 
+
+	def array_high_risk_establishments
+		@fi_data.select {|establishment| establishment.risk == "Risk 1 (High)"}
+	end
+
+	def high_risk_establishment
+		array_high_risk_establishments.first
+	end
+
+	def name_high_risk_establishment
+		high_risk_establishment.name
+	end
+
+	def violations_high_risk_establishment
+		high_risk_establishment.violations
+	end
 
 	def array_recent_fails
 		array_of_fails = @fi_data.select {|establishment| establishment.results == "Fail"}
@@ -67,3 +83,5 @@ class Establishments
 		(city_pass.to_f / @fi_data.length.to_f  * 100).round(2)
 	end
 end
+
+		
