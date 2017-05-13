@@ -7,7 +7,7 @@ class Establishments
 	end
 
 	def to_pretty_string(zip_code)
-	puts <<-HEREDOC 
+	puts <<-HEREDOC.gsub /^\s+/, ""
 
 		 REPORT ON FOOD INSPECTIONS IN CHICAGO
 
@@ -20,6 +20,22 @@ class Establishments
  	end
 
 	private 
+
+	def num_inspections
+		@fi_data.length
+	end
+
+	def city_pass
+		@fi_data.select {|establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions"}.length
+	end
+
+	def city_fail
+		@fi_data.select {|establishment| establishment.results == "Fail"}.length
+	end
+
+	def city_pass_percentage(zip_code)
+		(city_pass.to_f / @fi_data.length.to_f  * 100).round(2)
+	end
 
 	def array_high_risk_establishments
 		@fi_data.select {|establishment| establishment.risk == "Risk 1 (High)"}
@@ -88,22 +104,6 @@ class Establishments
 		else
 			result
 		end
-	end
-
-	def num_inspections
-		@fi_data.length
-	end
-
-	def city_pass
-		@fi_data.select {|establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions"}.length
-	end
-
-	def city_fail
-		@fi_data.select {|establishment| establishment.results == "Fail"}.length
-	end
-
-	def city_pass_percentage(zip_code)
-		(city_pass.to_f / @fi_data.length.to_f  * 100).round(2)
 	end
 
 	def snarky_comment(zip_code)

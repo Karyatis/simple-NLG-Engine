@@ -2,7 +2,7 @@ require_relative "../fi_data"
 require_relative "../fi_data_loader"
 
 describe FIDataLoader do
-  let(:filename) { "test_file.csv" }
+  let(:filename) { "test_data.csv" }
 
   describe "#parse" do
     it "returns an array of FIData objects" do
