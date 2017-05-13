@@ -19,6 +19,10 @@ class Establishments
 		HEREDOC
  	end
 
+ 	def zipcode_fail_msg
+ 		puts "Please input valid zip code"
+ 	end
+
 	private 
 
 	def num_inspections
