@@ -58,14 +58,7 @@ class Establishments
 	end
 
 	def array_recent_fails
-		array_of_fails = @fi_data.select {|establishment| establishment.results == "Fail"}
-		three_recent_fails = []
-		i = 0 
-			while i < 3
-				three_recent_fails << array_of_fails[i]
-				i += 1
-			end
-		three_recent_fails
+		@fi_data.select {|establishment| establishment.results == "Fail"}.slice(0..2)
 	end
 
 	def recent_fails_names
