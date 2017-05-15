@@ -1,4 +1,4 @@
-class Establishments
+class Establishment
 
 	attr_reader :fi_data
 
@@ -30,11 +30,11 @@ class Establishments
 	end
 
 	def city_pass
-		@fi_data.select {|establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions"}.length
+		@fi_data.select { |establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions" }.length
 	end
 
 	def city_fail
-		@fi_data.select {|establishment| establishment.results == "Fail"}.length
+		@fi_data.select { |establishment| establishment.results == "Fail" }.length
 	end
 
 	def city_pass_percentage(zip_code)
@@ -42,7 +42,7 @@ class Establishments
 	end
 
 	def array_high_risk_establishments
-		@fi_data.select {|establishment| establishment.risk == "Risk 1 (High)"}
+		@fi_data.select { |establishment| establishment.risk == "Risk 1 (High)" }
 	end
 
 	def high_risk_establishment
@@ -58,7 +58,7 @@ class Establishments
 	end
 
 	def array_recent_fails
-		@fi_data.select {|establishment| establishment.results == "Fail"}.slice(0..2)
+		@fi_data.select { |establishment| establishment.results == "Fail" }.slice(0..2)
 	end
 
 	def recent_fails_names
@@ -70,19 +70,19 @@ class Establishments
 	end
 
 	def zipcode_array(zip_code)
-		@fi_data.select {|fi_data| fi_data.zipcode == zip_code }
+		@fi_data.select { |fi_data| fi_data.zipcode == zip_code }
 	end
 
 	def num_zipcode_array(zip_code)
-		@fi_data.select {|fi_data| fi_data.zipcode == zip_code }.length
+		@fi_data.select { |fi_data| fi_data.zipcode == zip_code }.length
 	end
 
 	def zip_pass(zip_code)
-		zipcode_array(zip_code).select {|establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions"}.length
+		zipcode_array(zip_code).select { |establishment| establishment.results == "Pass" || establishment.results == "Pass w/ Conditions" }.length
 	end
 
 	def zip_fail(zip_code)
-		zipcode_array(zip_code).select {|establishment| establishment.results == "Fail"}.length
+		zipcode_array(zip_code).select { |establishment| establishment.results == "Fail" }.length
 	end
 
 	def zip_pass_percentage(zip_code)
